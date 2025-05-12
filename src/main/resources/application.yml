@@ -1,6 +1,7 @@
 spring:
   application:
     name: redis
+
   server:
     port: 8080
 
@@ -11,7 +12,29 @@ spring:
       client:
         host: localhost
         port: 6379
-        password: yourpassword # Uncomment and set if Redis requires authentication
+        # password: yourpassword # Uncomment and set if Redis requires authentication
         database: 0
         timeout: 2000
         client-type: lettuce
+
+    # H2 Database configuration
+    datasource:
+      url: jdbc:h2:mem:testdb # In-memory database, or you can change it to jdbc:h2:file:./data/db if persistent
+      driverClassName: org.h2.Driver
+      username: sa
+      password: password
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 5
+        pool-name: HikariCP
+        idle-timeout: 30000
+        connection-timeout: 30000
+        max-lifetime: 60000
+    jpa:
+      hibernate:
+        ddl-auto: update # Automatically creates/upgrades tables, set to 'none' for production
+      database-platform: org.hibernate.dialect.H2Dialect
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
