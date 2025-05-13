@@ -24,10 +24,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         // Save the user to the database
         System.out.println("Saving user: " + user);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @CacheEvict(value = "users", key = "#id")
